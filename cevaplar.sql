@@ -17,9 +17,10 @@ INNER JOIN payment ON customer.customer_id=payment.customer_id
 ORDER BY payment.payment_date DESC
 
 --4.SORU P ve P'den sonraki harflerle başlayan ve stokta bulunmayan filmleri listeleyen bir sorgu 
-SELECT film.release_year, film.title FROM film
-INNER JOIN inventory ON film.film_id!=inventory.film_id
+SELECT film.film_id, film.title FROM film
+LEFT JOIN inventory ON film.film_id!=inventory.film_id
 WHERE film.title SIMILAR TO '[P-Z]%'
+GROUP BY film.film_id
 
 --5. SORU B harfi ile başlayan müşterileri, film kiralamak için ödedikleri toplam miktarları ile birlikte listeleyen sorgu
 SELECT customer.first_name,customer.last_name, SUM(payment.amount) FROM customer
